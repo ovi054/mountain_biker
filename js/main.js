@@ -187,14 +187,13 @@ function handleOrientation(event) {
   k.ArrowLeft = normalizedTilt < 0 ? Math.abs(normalizedTilt) : 0;
 }
 
-// Add event listeners for the "Gear" button
-document.getElementById('gearButton').addEventListener('touchstart', function() {
-  event.preventDefault();  // Prevents long press actions like showing copy text
+document.getElementById('gearButton').addEventListener('touchstart', function(event) {
+  event.preventDefault();  // Prevent default long press behavior
   k.ArrowUp = 1;  // Simulate pressing the up arrow
 });
 
-document.getElementById('gearButton').addEventListener('touchend', function() {
-  event.preventDefault();  // Prevents long press actions like showing copy text
+document.getElementById('gearButton').addEventListener('touchend', function(event) {
+  event.preventDefault();  // Prevent default long press behavior
   k.ArrowUp = 0;  // Simulate releasing the up arrow
 });
 

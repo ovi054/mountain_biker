@@ -119,6 +119,11 @@ kbd:hover{
   -moz-user-select: none;    /* For Firefox */
   -ms-user-select: none;     /* For IE/Edge */
   -o-user-select: none;
+  touch-action: none;        /* Disable touch action like double-tap zoom */
+  -webkit-touch-callout: none; /* Disable long-press menu on iOS */
+  border: none;              /* Remove borders */
+  background: none;          /* Transparent background */
+  cursor: pointer;
 }
 
 #gearButton:active {
