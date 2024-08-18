@@ -13,7 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize canvas and game elements
   canvas.style.display = 'none'; // Hide canvas initially
+  // Gear button event listener
+  let sensorEnabled = false;
+  document.getElementById('gearButton').addEventListener('click', () => {
+    sensorEnabled = true;
+    enableSensor(); // Enable the sensor once the button is clicked
+  });
   initGame(); // Function to initialize game elements (if any)
+
 });
 
 
@@ -170,9 +177,11 @@ function restart(){
   speed = 0;
   playing = true;
 
+
   // Reset the scene offset and score
   sceneOffset = 0;
   score = 0;
+  sensorEnabled = false;
   k = {ArrowUp:0, ArrowDown:0, ArrowLeft:0, ArrowRight:0};
 
 }
@@ -260,11 +269,20 @@ function button_up(event){
 }
 
 
-if (window.DeviceOrientationEvent) {
-  window.addEventListener('deviceorientation', handleOrientation);
-} else {
-  alert('DeviceOrientationEvent is not supported by your browser.');
+// if (window.DeviceOrientationEvent) {
+//   window.addEventListener('deviceorientation', handleOrientation);
+// } else {
+//   alert('DeviceOrientationEvent is not supported by your browser.');
+// }
+
+
+// Enable the sensor only after the gear button is pressed
+function enableSensor() {
+  if (window.DeviceOrientationEvent && sensorEnabled) {
+    window.addEventListener('deviceorientation', handleOrientation);
+  }
 }
+
 
 function handleOrientation(event) {
   let tiltLR = event.gamma;
@@ -280,6 +298,7 @@ function handleOrientation(event) {
     k.ArrowLeft = 0;
   }
 }
+
 
 
 document.getElementById('gearButton').addEventListener('touchstart', function(event) {
