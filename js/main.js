@@ -108,6 +108,16 @@ function restart(){
   k = {ArrowUp:0, ArrowDown:0, ArrowLeft:0, ArrowRight:0};
 
 }
+
+// Add touch control after initializing the canvas
+c.addEventListener('touchstart', function() {
+  k.ArrowUp = 1;
+});
+
+c.addEventListener('touchend', function() {
+  k.ArrowUp = 0;
+});
+
 loop();
 
 // control settings
