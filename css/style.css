@@ -103,32 +103,211 @@ kbd:hover{
 }
 
 #gearButton {
-  width: 80px;
-  height: 80px;
-  background-color: var(--dc-);
-  color: var(--wh-);
-  border: none;
-  border-radius: 50%;
-  font-size: 1.5em;
-  cursor: pointer;
-  box-shadow: var(--shadow1-);
-  outline: none;
+  width: 100px;                /* Increased size */
+  height: 100px;               /* Increased size */
+  background: linear-gradient(145deg, #4caf50, #388e3c); /* Subtle gradient for depth */
+  color: #ffffff;              /* White text */
+  border: none;                /* No borders */
+  border-radius: 50%;          /* Circle shape */
+  font-size: 2em;              /* Increased font size for better visibility */
+  cursor: pointer;             /* Pointer on hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15); /* Soft shadow */
+  outline: none;               /* No outline */
   margin: 20px;
-  user-select: none;
-  -webkit-user-select: none; /* For Safari */
-  -moz-user-select: none;    /* For Firefox */
-  -ms-user-select: none;     /* For IE/Edge */
+  user-select: none;           /* Disable text selection */
+  -webkit-user-select: none;   /* For Safari */
+  -moz-user-select: none;      /* For Firefox */
+  -ms-user-select: none;       /* For IE/Edge */
   -o-user-select: none;
-  touch-action: none;        /* Disable touch action like double-tap zoom */
+  touch-action: none;          /* Disable touch action like double-tap zoom */
   -webkit-touch-callout: none; /* Disable long-press menu on iOS */
-  border: none;              /* Remove borders */
-  background: none;          /* Transparent background */
-  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth animations */
 }
 
 #gearButton:active {
-  background-color: #218838;
+  transform: scale(0.95);  /* Slight scale when pressed */
+  background: linear-gradient(145deg, #43a047, #388e3c); /* Darker gradient */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+#gearButton:hover {
+  background: linear-gradient(145deg, #66bb6a, #43a047); /* Lighter gradient on hover */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Increased shadow on hover */
+}
+
+#gearButton.pressed {
+  /*background: var(--gr-); /* Darker color */*/
+  box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.25); /* Inner shadow for depth */
+  transform: scale(0.92); /* Slightly scale down for press effect */
+}
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+}
+
+#canvas {
+  display: none; 
+  width: 100%;
+  height: 50vh;
+  display: block;
+  margin: 0 auto;
+
+}
+
+section {
+  height: 30vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#top-bar {
+  height: 15vh; /* Top section height */
+  background-color: #1b2735;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table p, .table span {
+  font-size: 2em;
+  padding: 10px;
+  margin: 10px;
+}
+
+button, kbd {
+  background-color: #e1e5ea; /* Soft gray */
+  color: #1c3b57; /* Text color matching canvas */
+}
+
+button:hover, kbd:hover {
+  background-color: #cce6ff; /* Soft light blue */
+  box-shadow: 0 0 15px #cce6ff;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+    justify-content: center;
+  align-items: center;
+}
+
+#splash-screen {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #000; /* Background color for splash screen */
+  color: #fff;
+  text-align: center;
+  z-index: 1000; /* Ensure splash screen is above the canvas */
+}
+
+#wallpaper {
+  width: auto;
+  height: 100%;
+  /*position: absolute;*/
+  /*max-height: 100vh; */
+  object-fit: cover;  
+  top: 0;
+  left: 0;
+  z-index: -1; /* Ensure wallpaper is behind the button */
+}
+
+#play-button {
+  padding: 10px 20px;
+  font-size: 1.5em;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1;
+
+}
+
+/*/* Style for the Play button on splash screen */
+/*#play-button {
+  background-color: #4CAF50; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 8px; =
+}
+*/
+
+/* Style for the final score section */
+#final-score {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  /*display: none;*/
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Style for the score and highest score text */
+#score, #highest-score {
+  display: none;
+  font-size: 16px;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Text shadow for better readability */
+  margin: 10px;
+}
+
+
+@media (orientation: landscape) {
+  #canvas {
+    height: 100vh;
+    width: 50vw;
+  }
+
+  section {
+    height: 100vh;
+    width: 50vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  #wallpaper {
+    left: unset; /* Removes the left alignment on larger screens */
+  }
+}
+
+
 
 
 

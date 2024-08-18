@@ -1,6 +1,30 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const splashScreen = document.getElementById('splash-screen');
+  const playButton = document.getElementById('play-button');
+  const canvas = document.getElementById('canvas');
+
+  const finalScore = document.getElementById('final-score');
+  
+  playButton.addEventListener('click', () => {
+    splashScreen.style.display = 'none';
+    canvas.style.display = 'block';
+    startGame(); // Function to start the game
+  });
+  
+  // Initialize canvas and game elements
+  canvas.style.display = 'none'; // Hide canvas initially
+  initGame(); // Function to initialize game elements (if any)
+});
+
+
+
+
 
 var c = document.getElementById('canvas');
 var ctx = c.getContext("2d");
+
+
+
 
 var perm = [];
 while (perm.length < 255){
@@ -20,6 +44,7 @@ var Player = function(){
   this.ySpeed = 0;
   this.rot = 0;
   this.rSpeed = 0;
+
 
   this.img = new Image();
   this.img.src = "img/moto.png";
@@ -63,7 +88,13 @@ var Player = function(){
   }
 }
 
+
+
 var player = new Player();
+var sceneOffset = 0;
+var score = 0;
+var highestScore = 0; 
+var lastX = player.x;
 var t = 0;
 var speed = 0;
 var playing = true;
@@ -71,6 +102,7 @@ var k = {ArrowUp:0, ArrowDown:0, ArrowLeft:0, ArrowRight:0};
 function loop(){
   speed -= (speed - (k.ArrowUp - k.ArrowDown)) * 0.01;
   t += 10 * speed;
+  sceneOffset += speed; 
   ctx.fillStyle = "#19f";
   ctx.fillRect(0,0,c.width, c.height);
 
@@ -91,8 +123,40 @@ function loop(){
   ctx.fill();
 
   player.draw();
-  if(player.x < 0)
+
+  // Debug: Log player.x and lastX
+  // console.log(`Player X: ${player.x}, Last X: ${lastX}`);
+
+  // Update score based on sceneOffset
+  score = Math.floor(sceneOffset / 10); // Change the divisor to adjust scoring rate
+  
+  console.log(`Score: ${score}`); // For debugging
+
+  // Update highest score
+  if (score > highestScore) {
+    highestScore = score;
+  }
+
+
+  drawScore();
+
+
+
+  if(player.x < 0){
+
+  document.getElementById('score').innerText = 'Your Score: ' + score;
+  document.getElementById('highest-score').innerText = 'Highest Score: ' + highestScore;
+
+  // Show the splash screen
+  document.getElementById('play-button').style.display = 'block';
+  document.getElementById('score').style.display = 'block';
+  document.getElementById('splash-screen').style.display = 'block';
+
+
+  // Hide the game screen
+  canvas.style.display = 'none';
   restart();
+}
   requestAnimationFrame(loop);
 }
 
@@ -105,9 +169,36 @@ function restart(){
   t = 0;
   speed = 0;
   playing = true;
+
+  // Reset the scene offset and score
+  sceneOffset = 0;
+  score = 0;
   k = {ArrowUp:0, ArrowDown:0, ArrowLeft:0, ArrowRight:0};
 
 }
+
+
+function drawScore() {
+  ctx.save();
+  ctx.font = "24px Arial";
+  ctx.fillStyle = "#fff"; // White color for text
+  ctx.textBaseline = "top";
+
+  // Draw current score
+  ctx.textAlign = "left";
+  ctx.fillText("Score: " + score, 10, 10);
+
+  // Calculate the width of the highest score text
+  const highestScoreText = "Highest Score: " + highestScore;
+  const highestScoreWidth = ctx.measureText(highestScoreText).width;
+
+  // Draw highest score aligned to the right
+  ctx.textAlign = "right";
+  ctx.fillText(highestScoreText, c.width - 10, 10); // 10px padding from the right edge
+
+  ctx.restore();
+}
+
 
 // Add touch control after initializing the canvas
 c.addEventListener('touchstart', function() {
@@ -212,67 +303,41 @@ document.getElementById('gearButton').addEventListener('mouseup', function() {
 
 
 
+let buttonPressInterval;
 
+const gearButton = document.getElementById('gearButton');
 
+// Function to simulate the "up" action
+function triggerUpAction() {
+  // console.log("Gear button pressed - simulating up action");
+  // Add the logic that should occur when the "up" action is triggered
+}
 
+// When the button is pressed down (either mouse or touch)
+gearButton.addEventListener('mousedown', () => {
+  gearButton.classList.add('pressed'); // Add the pressed class
+  triggerUpAction(); // Trigger once immediately
+  buttonPressInterval = setInterval(triggerUpAction, 100); // Continue triggering while held
+});
 
+gearButton.addEventListener('touchstart', (e) => {
+  e.preventDefault(); // Prevent long press menu on mobile
+  gearButton.classList.add('pressed'); // Add the pressed class
+  triggerUpAction(); // Trigger once immediately
+  buttonPressInterval = setInterval(triggerUpAction, 100); // Continue triggering while held
+});
 
+// When the button is released (either mouse or touch)
+gearButton.addEventListener('mouseup', () => {
+  gearButton.classList.remove('pressed'); // Remove the pressed class
+  clearInterval(buttonPressInterval); // Stop triggering
+});
 
+gearButton.addEventListener('touchend', () => {
+  gearButton.classList.remove('pressed'); // Remove the pressed class
+  clearInterval(buttonPressInterval); // Stop triggering
+});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // END
 
 
 
