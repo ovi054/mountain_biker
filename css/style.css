@@ -26,6 +26,14 @@
 /* This will help a bit with the layered box with different padding,margin or even border */
 *, *::before, *::after{box-sizing: border-box;}
 
+
+/* Disable text selection */
+* {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE/Edge */
+  user-select: none; /* Standard */
+}
+
 html {
   height: 100%;
   overflow: hidden;
@@ -305,10 +313,30 @@ body {
   #wallpaper {
     left: unset; /* Removes the left alignment on larger screens */
   }
+
+  #play-button {
+  padding: 5px 10px;
+  font-size: 1.5em;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1;
+
+}
+#gearButton {
+  width: 150px;                /* Increased size */
+  height: 150px; 
+}
+
+#score, #highest-score {
+  font-size:15px;
+  /*margin: 10px;*/
 }
 
 
-
+}
 
 
 

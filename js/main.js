@@ -340,4 +340,9 @@ gearButton.addEventListener('touchend', () => {
 
 
 
+document.addEventListener('contextmenu', function (e) {
+  e.preventDefault();
+});
+
+
 
