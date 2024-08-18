@@ -102,6 +102,24 @@ kbd:hover{
   border:1px solid var(--lg-);
 }
 
+#gearButton {
+  width: 80px;
+  height: 80px;
+  background-color: var(--dc-);
+  color: var(--wh-);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5em;
+  cursor: pointer;
+  box-shadow: var(--shadow1-);
+  outline: none;
+  margin: 20px;
+}
+
+#gearButton:active {
+  background-color: #218838;
+}
+
 
 
 

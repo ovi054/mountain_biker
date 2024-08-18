@@ -187,6 +187,25 @@ function handleOrientation(event) {
   k.ArrowLeft = normalizedTilt < 0 ? Math.abs(normalizedTilt) : 0;
 }
 
+// Add event listeners for the "Gear" button
+document.getElementById('gearButton').addEventListener('touchstart', function() {
+  k.ArrowUp = 1;  // Simulate pressing the up arrow
+});
+
+document.getElementById('gearButton').addEventListener('touchend', function() {
+  k.ArrowUp = 0;  // Simulate releasing the up arrow
+});
+
+// Add event listeners for desktop mouse interaction
+document.getElementById('gearButton').addEventListener('mousedown', function() {
+  k.ArrowUp = 1;  // Simulate pressing the up arrow
+});
+
+document.getElementById('gearButton').addEventListener('mouseup', function() {
+  k.ArrowUp = 0;  // Simulate releasing the up arrow
+});
+
+
 
 
 
