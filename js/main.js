@@ -169,29 +169,20 @@ function button_up(event){
 }
 
 
-let lastTiltLR = 0;
-
 function handleOrientation(event) {
   let tiltLR = event.gamma;
 
   // Dead zone of 5 degrees
   if (Math.abs(tiltLR) > 5) {
-    // Smoothing factor (e.g., 0.1 for moderate smoothing)
-    let smoothing = 0.1;
-    let smoothedTilt = lastTiltLR + (tiltLR - lastTiltLR) * smoothing;
-    
     // Scale the sensitivity factor (e.g., 0.5 to reduce sensitivity)
     let sensitivity = 0.5;
-    let normalizedTilt = smoothedTilt / 90 * sensitivity;
+    let normalizedTilt = tiltLR / 90 * sensitivity;
 
     k.ArrowRight = normalizedTilt > 0 ? Math.abs(normalizedTilt) : 0;
     k.ArrowLeft = normalizedTilt < 0 ? Math.abs(normalizedTilt) : 0;
-
-    lastTiltLR = smoothedTilt;
   } else {
     k.ArrowRight = 0;
     k.ArrowLeft = 0;
-    lastTiltLR = 0;  // Reset last tilt when not active
   }
 }
 
