@@ -169,22 +169,41 @@ function button_up(event){
 }
 
 
+
+let lastTiltLR = 0;
+let sensitivity = 0.5;  // Adjust this value to change sensitivity
+let smoothing = 0.1;    // Adjust this value to change smoothing
+
 function handleOrientation(event) {
   let tiltLR = event.gamma;
 
-  // Dead zone of 5 degrees
+  // Dead zone of 5 degrees to ignore minor movements
   if (Math.abs(tiltLR) > 5) {
-    // Scale the sensitivity factor (e.g., 0.5 to reduce sensitivity)
-    let sensitivity = 0.5;
-    let normalizedTilt = tiltLR / 90 * sensitivity;
+    // Apply smoothing
+    let smoothedTilt = lastTiltLR + (tiltLR - lastTiltLR) * smoothing;
+    
+    // Normalize and adjust sensitivity
+    let normalizedTilt = smoothedTilt / 90 * sensitivity;
 
     k.ArrowRight = normalizedTilt > 0 ? Math.abs(normalizedTilt) : 0;
     k.ArrowLeft = normalizedTilt < 0 ? Math.abs(normalizedTilt) : 0;
+
+    lastTiltLR = smoothedTilt;
   } else {
+    // Reset controls when tilt is within the dead zone
     k.ArrowRight = 0;
     k.ArrowLeft = 0;
+    lastTiltLR = 0;
   }
 }
+
+
+if (window.DeviceOrientationEvent) {
+  window.addEventListener('deviceorientation', handleOrientation);
+} else {
+  alert('DeviceOrientationEvent is not supported by your browser.');
+}
+
 
 
 document.getElementById('gearButton').addEventListener('touchstart', function(event) {
