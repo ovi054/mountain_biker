@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize canvas and game elements
   canvas.style.display = 'none'; // Hide canvas initially
   // Gear button event listener
-  let sensorEnabled = false;
-  document.getElementById('gearButton').addEventListener('click', () => {
-    sensorEnabled = true;
-    enableSensor(); // Enable the sensor once the button is clicked
-  });
+  // let sensorEnabled = false;
+  // document.getElementById('gearButton').addEventListener('click', () => {
+  //   sensorEnabled = true;
+  //   enableSensor(); 
+  // });
   initGame(); // Function to initialize game elements (if any)
 
 });
@@ -269,19 +269,19 @@ function button_up(event){
 }
 
 
-// if (window.DeviceOrientationEvent) {
-//   window.addEventListener('deviceorientation', handleOrientation);
-// } else {
-//   alert('DeviceOrientationEvent is not supported by your browser.');
-// }
+if (window.DeviceOrientationEvent) {
+  window.addEventListener('deviceorientation', handleOrientation);
+} else {
+  alert('DeviceOrientationEvent is not supported by your browser.');
+}
 
 
 // Enable the sensor only after the gear button is pressed
-function enableSensor() {
-  if (window.DeviceOrientationEvent && sensorEnabled) {
-    window.addEventListener('deviceorientation', handleOrientation);
-  }
-}
+// function enableSensor() {
+//   if (window.DeviceOrientationEvent && sensorEnabled) {
+//     window.addEventListener('deviceorientation', handleOrientation);
+//   }
+// }
 
 
 function handleOrientation(event) {
