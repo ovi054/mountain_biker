@@ -176,16 +176,20 @@ if (window.DeviceOrientationEvent) {
 }
 
 function handleOrientation(event) {
-  // Get the gamma value (left-right tilt in degrees)
-  let tiltLR = event.gamma;  // Range from -90 to 90
+  let tiltLR = event.gamma;
 
-  // Normalize tilt to a range for controlling the player
-  let normalizedTilt = tiltLR / 90;  // Normalize between -1 and 1
+  // Dead zone of 5 degrees
+  if (Math.abs(tiltLR) > 5) {
+    let normalizedTilt = tiltLR / 90;
 
-  // Adjust the player's movement based on the tilt
-  k.ArrowRight = normalizedTilt > 0 ? Math.abs(normalizedTilt) : 0;
-  k.ArrowLeft = normalizedTilt < 0 ? Math.abs(normalizedTilt) : 0;
+    k.ArrowRight = normalizedTilt > 0 ? Math.abs(normalizedTilt) : 0;
+    k.ArrowLeft = normalizedTilt < 0 ? Math.abs(normalizedTilt) : 0;
+  } else {
+    k.ArrowRight = 0;
+    k.ArrowLeft = 0;
+  }
 }
+
 
 document.getElementById('gearButton').addEventListener('touchstart', function(event) {
   event.preventDefault();  // Prevent default long press behavior
