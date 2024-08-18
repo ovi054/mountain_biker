@@ -189,10 +189,12 @@ function handleOrientation(event) {
 
 // Add event listeners for the "Gear" button
 document.getElementById('gearButton').addEventListener('touchstart', function() {
+  event.preventDefault();  // Prevents long press actions like showing copy text
   k.ArrowUp = 1;  // Simulate pressing the up arrow
 });
 
 document.getElementById('gearButton').addEventListener('touchend', function() {
+  event.preventDefault();  // Prevents long press actions like showing copy text
   k.ArrowUp = 0;  // Simulate releasing the up arrow
 });
 

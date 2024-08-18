@@ -114,6 +114,11 @@ kbd:hover{
   box-shadow: var(--shadow1-);
   outline: none;
   margin: 20px;
+  user-select: none;
+  -webkit-user-select: none; /* For Safari */
+  -moz-user-select: none;    /* For Firefox */
+  -ms-user-select: none;     /* For IE/Edge */
+  -o-user-select: none;
 }
 
 #gearButton:active {
